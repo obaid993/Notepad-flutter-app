@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-part 'darkmode.g.dart';
+part 'dark-mode.g.dart';
 
 @HiveType(typeId: 1)
 class DarkMode extends HiveObject {
