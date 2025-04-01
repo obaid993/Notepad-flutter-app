@@ -1,8 +1,12 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notepad/hive/boxes.dart';
+import '../constant.dart';
+import '../hive/dark-mode.dart';
 import '../hive/notes_model.dart';
+import 'package:path_provider/path_provider.dart' as path;
 
 class AddNotesProvider extends ChangeNotifier {
   TextEditingController titleController = TextEditingController();
@@ -33,7 +37,7 @@ class AddNotesProvider extends ChangeNotifier {
     'Ideas': Colors.blue,
   };
 
-  void setCurrentIndex(int index){
+  void setCurrentIndex(int index) {
     selectedIndex = index;
     notifyListeners();
   }
@@ -65,6 +69,20 @@ class AddNotesProvider extends ChangeNotifier {
   }
 
   //init Hive
+  static initHive() async {
+    final dir = await path.getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+    await Hive.initFlutter(Constants.notepadDB);
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(NotesModelAdapter());
+      await Hive.openBox<NotesModel>(Constants.notesBox);
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(DarkModeAdapter());
+      await Hive.openBox<DarkMode>(Constants.darkModeBox);
+    }
+  }
+
   // static initHive() async {
   //   final dir = await path.getApplicationDocumentsDirectory();
   //   Hive.init(dir.path);
@@ -74,5 +92,4 @@ class AddNotesProvider extends ChangeNotifier {
   //     Hive.registerAdapter(NotesModelAdapter());
   //     await Hive.openBox<NotesModel>('notes');
   //   }
-  }
-
+}
