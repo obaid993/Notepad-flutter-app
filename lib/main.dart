@@ -14,7 +14,9 @@ import 'screens/home_screen.dart';
 // import 'package:path_provider/path_provider.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+
   // AddNotesProvider.initHive;
   // var directory = await getApplicationDocumentsDirectory();
   // Hive.init(directory.path);
@@ -22,6 +24,7 @@ void main() async {
   //   Hive.registerAdapter(NotesModelAdapter());
   // }
   // await Hive.openBox<NotesModel>('notes');
+
   await AddNotesProvider.initHive();
   runApp(const MyApp());
 }
@@ -47,7 +50,7 @@ class MyApp extends StatelessWidget {
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
                 // Change the text color to white
-                ),
+          ),
           ),
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.amber,
