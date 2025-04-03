@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/dark-mode-provider.dart';
 import 'category_list.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -33,7 +35,19 @@ class CustomDrawer extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         )),
                     Spacer(),
-                    Icon(Icons.dark_mode),
+                    Consumer<DarkModeProvider>(
+                        builder: (BuildContext context, value, child) {
+                      return IconButton(
+                          onPressed: () {
+                            value.toggleDarkMode(value: !value.isDarkMode);
+                          },
+                          icon: Icon(
+                              value.isDarkMode
+                                  ? Icons.brightness_2_rounded
+                                  : Icons.brightness_5_rounded,
+                              size: 26));
+                    }),
+                    // Icon(Icons.dark_mode),
                   ],
                 ),
                 SizedBox(height: 5),
@@ -66,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: const Icon(
                     Icons.work,
-                    color : const Color.fromARGB(255, 243, 33, 226),
+                    color: const Color.fromARGB(255, 243, 33, 226),
                     size: 30,
                   ),
                   title: Text("Work",
@@ -77,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: const Icon(
                     Icons.person,
-                    color : Colors.amber,
+                    color: Colors.amber,
                     size: 30,
                   ),
                   title: Text("Personal",
@@ -88,7 +102,7 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: const Icon(
                     Icons.book,
-                    color : Colors.blue,
+                    color: Colors.blue,
                     size: 30,
                   ),
                   title: Text("Ideas",

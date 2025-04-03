@@ -8,13 +8,14 @@ import 'package:provider/provider.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 import 'hive/notes_model.dart';
 import 'provider/addnotes_provider.dart';
+import 'provider/dark-mode-provider.dart';
 import 'provider/homescreen_provider.dart';
 import 'screens/home_screen.dart';
+import 'themes/my_theme.dart';
 // import 'hive/notes_model.dart';
 // import 'package:path_provider/path_provider.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   // AddNotesProvider.initHive;
@@ -26,42 +27,56 @@ void main() async {
   // await Hive.openBox<NotesModel>('notes');
 
   await AddNotesProvider.initHive();
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => HomescreenProvider()),
+    ChangeNotifierProvider(create: (_) => AddNotesProvider()),
+    ChangeNotifierProvider(create: (_) => DarkModeProvider())
+  ], child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // This widget is the root of your application.
+
+  @override
+  void initState() {
+    setTheme();
+    super.initState();
+  }
+
+  void setTheme() {
+    final darkProvider = context.read<DarkModeProvider>();
+    darkProvider.getSavedMode();
+  }
+
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => HomescreenProvider()),
-        ChangeNotifierProvider(create: (_) => AddNotesProvider())
-      ],
-      // create: (context) => HomeScreenProvider(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-                // Change the text color to white
-          ),
-          ),
-          appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.amber,
-              // color: Colors.white
-              titleTextStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold)),
-        ),
-        home: HomeScreen(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Simple Notes',
+      theme: context.watch<DarkModeProvider>().isDarkMode ? darkTheme : lightTheme,
+      // ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      //   useMaterial3: true,
+      //   textButtonTheme: TextButtonThemeData(
+      //     style: TextButton.styleFrom(
+      //         // Change the text color to white
+      //         ),
+      //   ),
+      //   appBarTheme: const AppBarTheme(
+      //       backgroundColor: Colors.amber,
+      //       // color: Colors.white
+      //       titleTextStyle: TextStyle(
+      //           color: Colors.white,
+      //           fontSize: 18,
+      //           fontWeight: FontWeight.bold)),
+      // ),
+      home: HomeScreen(),
     );
   }
 }
