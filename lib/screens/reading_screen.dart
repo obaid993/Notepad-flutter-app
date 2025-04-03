@@ -60,58 +60,60 @@ class _ReadingScreenState extends State<ReadingScreen> {
                 ],
               ),
             ),
-            body: InkWell(
-              onTap: () async {
-                final updateNote = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                              create: (_) => AddNotesProvider(
-                                  notesModel: widget.noteModel, editMode: true),
-                              child: AddNote(),
-                            )));
-                if (updateNote != null) {
-                  setState(() {
-                    widget.noteModel = updateNote;
-                  });
-                }
-              },
-              child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            widget.noteModel!.category!,
-                            style: TextStyle(color: provider.categoryColor[widget.noteModel!.category]),
-                          ),
-                        SizedBox(width: 10),  
-                        Text(widget.noteModel!.date != null
-                        ? '${DateFormat.yMd().format(widget.noteModel!.date!)}'
-                        : ''),
-                        ],
-                      ),
-                      Text(
-                  widget.noteModel!.title.toString(),
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
+            body: SingleChildScrollView(
+              child: InkWell(
+                onTap: () async {
+                  final updateNote = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                                create: (_) => AddNotesProvider(
+                                    notesModel: widget.noteModel, editMode: true),
+                                child: AddNote(),
+                              )));
+                  if (updateNote != null) {
+                    setState(() {
+                      widget.noteModel = updateNote;
+                    });
+                  }
+                },
+                child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              widget.noteModel!.category!,
+                              style: TextStyle(color: provider.categoryColor[widget.noteModel!.category]),
+                            ),
+                          SizedBox(width: 10),  
+                          Text(widget.noteModel!.date != null
+                          ? '${DateFormat.yMd().format(widget.noteModel!.date!)}'
+                          : ''),
+                          ],
+                        ),
+                        Text(
+                    widget.noteModel!.title.toString(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
-                ),
-                  Text(
-                  widget.noteModel!.notes.toString(),
-                  style: TextStyle(
-                    fontSize: 15,
+                    Text(
+                    widget.noteModel!.notes.toString(),
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
-                ),
-                    ],
-                  )),
+                      ],
+                    )),
+              ),
             )));
   }
 }
