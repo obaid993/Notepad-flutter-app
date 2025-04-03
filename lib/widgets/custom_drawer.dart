@@ -50,16 +50,6 @@ class CustomDrawer extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.folder_copy_outlined,
-                    size: 30,
-                  ),
-                  title: Text("Uncategorized",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
                 SizedBox(height: 5),
                 ListTile(
                   leading: const Icon(
@@ -72,18 +62,51 @@ class CustomDrawer extends StatelessWidget {
                       )),
                 ),
                 Divider(),
-                CategoryList(),
-                Divider(),
+                // CategoryList(),
                 ListTile(
                   leading: const Icon(
-                    Icons.category,
+                    Icons.work,
+                    color : const Color.fromARGB(255, 243, 33, 226),
                     size: 30,
                   ),
-                  title: Text("Manage Categories",
+                  title: Text("Work",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       )),
                 ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.person,
+                    color : Colors.amber,
+                    size: 30,
+                  ),
+                  title: Text("Personal",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.book,
+                    color : Colors.blue,
+                    size: 30,
+                  ),
+                  title: Text("Ideas",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                Divider(),
+                // ListTile(
+                //   leading: const Icon(
+                //     Icons.category,
+                //     size: 30,
+                //   ),
+                //   title: Text("Manage Categories",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //       )),
+                // ),
                 ListTile(
                   leading: const Icon(
                     Icons.backup,
