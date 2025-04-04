@@ -1,8 +1,6 @@
 // ignore_for_file: file_names, prefer_final_fields
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-
 import '../hive/boxes.dart';
 import '../hive/dark-mode.dart';
 

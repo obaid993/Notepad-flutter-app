@@ -31,25 +31,25 @@ class _AddNoteState extends State<AddNote> {
       builder: (context, provider, _) {
         return Scaffold(
           appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Cancel')),
-              Spacer(),
-              TextButton(
-                  onPressed: () {
-                    provider.editMode
-                        ? provider.updateNote()
-                        : provider.saveNote();
-                    Navigator.pop(context, provider.notesModel);
-                  },
-                  child: Text('Save')),
-            ],
-          )),
+              automaticallyImplyLeading: false,
+              title: Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Cancel')),
+                  Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        provider.editMode
+                            ? provider.updateNote()
+                            : provider.saveNote();
+                        Navigator.pop(context, provider.notesModel);
+                      },
+                      child: Text('Save')),
+                ],
+              )),
           body: SafeArea(
             child: ListView(
               children: [
