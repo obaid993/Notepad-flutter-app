@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/dark-mode-provider.dart';
+import '../screens/settings-screen.dart';
 import 'category_list.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -132,6 +133,12 @@ class CustomDrawer extends StatelessWidget {
                       )),
                 ),
                 ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsScreen()));
+                  },
                   leading: const Icon(
                     Icons.settings,
                     size: 30,
